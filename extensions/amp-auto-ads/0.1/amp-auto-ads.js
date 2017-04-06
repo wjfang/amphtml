@@ -61,10 +61,8 @@ export class AmpAutoAds extends AMP.BaseElement {
       const adTracker = new AdTracker(getExistingAds(this.win), MIN_AD_SPACING);
       const dataAttributes = adNetwork.getDataAttributes();
       placeStickyAd(this.win, dataAttributes['ad-client']);
-      /*
       new AdStrategy(type, placements, dataAttributes,
           adTracker, TARGET_AD_COUNT).run();
-          */
     });
   }
 
