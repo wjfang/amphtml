@@ -225,6 +225,21 @@ export function getPlacementsFromConfigObj(win, configObj) {
   return placements;
 }
 
+export function placeStickyAd(win, adClient) {
+  const attributes = {
+    'type': 'adsense',
+    'layout': 'responsive',
+    'width': '0',
+    'height': '0',
+    'data-ad-client': adClient,
+  };
+  let ampAd = createElementWithAttributes(win.document, 'amp-ad', attributes);
+  let stickyAd = createElementWithAttributes(
+      win.document, 'amp-sticky-ad', {'layout': 'nodisplay'});
+  stickyAd.appendChild(ampAd);
+  win.document.body.insertBefore(stickyAd, win.document.body.firstChild);
+}
+
 /**
  * Validates that the placementObj represents a valid placement and if so
  * constructs and returns an instance of the Placement class for it.

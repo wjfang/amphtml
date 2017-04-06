@@ -21,6 +21,7 @@ import {xhrFor} from '../../../src/xhr';
 import {getAdNetworkConfig} from './ad-network-config';
 import {isExperimentOn} from '../../../src/experiments';
 import {getPlacementsFromConfigObj} from './placement';
+import {placeStickyAd} from './placement';
 
 /** @const */
 const TAG = 'amp-auto-ads';
@@ -58,8 +59,12 @@ export class AmpAutoAds extends AMP.BaseElement {
     this.getConfig_(adNetwork.getConfigUrl()).then(configObj => {
       const placements = getPlacementsFromConfigObj(this.win, configObj);
       const adTracker = new AdTracker(getExistingAds(this.win), MIN_AD_SPACING);
-      new AdStrategy(type, placements, adNetwork.getDataAttributes(),
+      const dataAttributes = adNetwork.getDataAttributes();
+      placeStickyAd(this.win, dataAttributes['ad-client']);
+      /*
+      new AdStrategy(type, placements, dataAttributes,
           adTracker, TARGET_AD_COUNT).run();
+          */
     });
   }
 
